@@ -1,1 +1,1 @@
-Just a pretty bad Scanner/Tokenizer I made out of boredom.
+Just a pretty bad Scanner/Tokenizer.Tokenizer I made out of boredom.
