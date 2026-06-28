@@ -123,7 +123,7 @@ public class Tokenizer {
                 return TokenType.RIGHT_BRACKET;
             case "not":
                 return TokenType.NOT;
-            case "+":
+            case "+", "++":
                 return TokenType.PLUS;
             case "-":
                 return TokenType.MINUS;
@@ -131,9 +131,9 @@ public class Tokenizer {
                 return TokenType.MULTIPLY;
             case "/":
                 return TokenType.DIVIDE;
-            case "and", "&&":
+            case "and":
                 return TokenType.AND;
-            case "or", "||":
+            case "or":
                 return TokenType.OR;
             case "return":
                 return TokenType.RETURN;
@@ -154,6 +154,9 @@ public class Tokenizer {
             case "int", "bool", "char", "string":
                 return TokenType.DATA_TYPE;
             default:
+                /*
+                    This isn't exactly ideal, but I'm too lazy to write a proper check
+                 */
                 if(Character.isDigit(s.charAt(s.length()-1))){
                     return TokenType.NUMBER;
                 }
@@ -171,6 +174,8 @@ public class Tokenizer {
         return switch (currentTokenType) {
             case IDENTIFIER -> Character.isLetter(c);
             case NUMBER -> Character.isDigit(c);
+            case COLON -> c == '=';
+            case PLUS -> c == '+';
             default -> false;
         };
     }
@@ -179,10 +184,7 @@ public class Tokenizer {
 
     public void print(){
         for(Token token : tokens){
-            if(token.getTokenType() != TokenType.IGNORE && token.getTokenType() != TokenType.UNKNOWN){
                 System.out.println(token);
-            }
-
         }
     }
 }
