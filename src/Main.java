@@ -11,7 +11,7 @@ public class Main {
             else{
                 String fileName = args[0];
                 tokenizer.readInput(fileName);
-                tokenizer.print();
+                tokenizer.printUsefulTokens();
             }
 
         }

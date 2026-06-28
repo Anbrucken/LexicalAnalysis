@@ -34,7 +34,7 @@ public class Tokenizer {
             return numValue;
         }
         public String toString() {
-            return "|" + tokenType.toString() + "| char: " + charValue + " | num: " + numValue + "|";
+            return String.format("|%-13s|  |charContent: %-10s|  |numContent: %d|", tokenType.toString(), charValue, numValue);
         }
 
     }
@@ -186,5 +186,23 @@ public class Tokenizer {
         for(Token token : tokens){
                 System.out.println(token);
         }
+    }
+
+    /**
+     * Only prints non IGNORE/UNKNOWN tokens and just for fun some stats.
+     */
+    public void printUsefulTokens(){
+        int totalNum = 0;
+        int truncatedNum = 0;
+        for(Token token : tokens){
+            totalNum++;
+            if(token.tokenType != TokenType.IGNORE && token.tokenType != TokenType.UNKNOWN){
+                truncatedNum++;
+                System.out.println(token);
+            }
+
+        }
+        System.out.println("Total number of tokens: " + totalNum + ". Actually useful/non-ignored number of tokens: " + truncatedNum);
+
     }
 }
