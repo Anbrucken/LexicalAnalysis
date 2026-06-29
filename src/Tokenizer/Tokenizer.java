@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.lang.*;
 import java.util.Scanner;
 
+//TODO: Refactor using RegEx. What was I thinking???
 public class Tokenizer {
     private ArrayList<Token> tokens = new ArrayList<>();
 
