@@ -4,70 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.lang.*;
+import java.util.Iterator;
 import java.util.Scanner;
+
 
 //TODO: Refactor using RegEx. What was I thinking???
 public class Tokenizer {
     private ArrayList<Token> tokens = new ArrayList<>();
 
-    private static class Token {
-        private TokenType tokenType = TokenType.UNKNOWN;
-        private String charValue = null;
-        private long numValue = 0;
-        public Token(TokenType tokenType, String charValue){
-            this.tokenType = tokenType;
-            this.charValue = charValue;
-        }
-        public Token(TokenType tokenType, String charValue, long numValue){
-            this.tokenType = tokenType;
-            this.charValue = charValue;
-            this.numValue = numValue;
-        }
-        public Token(TokenType tokenType, long numValue){
-            this.tokenType = tokenType;
-            this.numValue = numValue;
-        }
-        public TokenType getTokenType() {
-            return tokenType;
-        }
-        public String getCharValue() {
-            return charValue;
-        }
-        public long getNumValue() {
-            return numValue;
-        }
-        public String toString() {
-            return String.format("|%-13s|  |charContent: %-10s|  |numContent: %d|", tokenType.toString(), charValue, numValue);
-        }
 
-    }
-
-    private enum TokenType{
-        IDENTIFIER,
-        NUMBER,
-        NOT,
-        PLUS,
-        MINUS,
-        MULTIPLY,
-        DIVIDE,
-        AND,
-        OR,
-        LEFT_PAREN,
-        RIGHT_PAREN,
-        LEFT_BRACKET,
-        RIGHT_BRACKET,
-        RETURN,
-        SEMICOLON,
-        COMMA,
-        COLON,
-        IF,
-        ELSE,
-        WHILE,
-        ASSIGN,
-        DATA_TYPE,
-        IGNORE,
-        UNKNOWN
-    }
 
     public void readInput(String fileName){
         try{
@@ -124,6 +69,10 @@ public class Tokenizer {
                 return TokenType.LEFT_BRACKET;
             case "]":
                 return TokenType.RIGHT_BRACKET;
+            case "{":
+                return TokenType.LEFT_BRACE;
+            case "}":
+                return TokenType.RIGHT_BRACE;
             case "not":
                 return TokenType.NOT;
             case "+", "++":
@@ -175,7 +124,7 @@ public class Tokenizer {
 
     private boolean fitsTokenType(char c, TokenType currentTokenType){
         return switch (currentTokenType) {
-            case IDENTIFIER -> Character.isLetter(c);
+            case IDENTIFIER -> Character.isLetterOrDigit(c);
             case NUMBER -> Character.isDigit(c);
             case COLON -> c == '=';
             case PLUS -> c == '+';
@@ -183,7 +132,9 @@ public class Tokenizer {
         };
     }
 
-
+    public Iterator<Token> getTokenIterator(){
+        return tokens.iterator();
+    }
 
     public void print(){
         for(Token token : tokens){
@@ -199,7 +150,7 @@ public class Tokenizer {
         int truncatedNum = 0;
         for(Token token : tokens){
             totalNum++;
-            if(token.tokenType != TokenType.IGNORE && token.tokenType != TokenType.UNKNOWN){
+            if(token.getTokenType() != TokenType.IGNORE && token.getTokenType() != TokenType.UNKNOWN){
                 truncatedNum++;
                 System.out.println(token);
             }

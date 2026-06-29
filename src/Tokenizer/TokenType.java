@@ -1,0 +1,31 @@
+package Tokenizer;
+
+public enum TokenType{
+    IDENTIFIER,
+    NUMBER,
+    NOT,
+    PLUS,
+    MINUS,
+    MULTIPLY,
+    DIVIDE,
+    AND,
+    OR,
+    LEFT_PAREN,
+    RIGHT_PAREN,
+    LEFT_BRACKET,
+    RIGHT_BRACKET,
+    LEFT_BRACE,
+    RIGHT_BRACE,
+    RETURN,
+    SEMICOLON,
+    COMMA,
+    COLON,
+    IF,
+    ELSE,
+    WHILE,
+    ASSIGN,
+    DATA_TYPE,
+    IGNORE,
+    EOF,
+    UNKNOWN
+}

@@ -19,4 +19,8 @@ public class Grammar {
     public List<Production> getProductionsFor(NonTerminal nt) {
         return productions.stream().filter(p -> p.left().equals(nt)).toList();
     }
+
+    public NonTerminal getStartSymbol() {
+        return startSymbol;
+    }
 }
